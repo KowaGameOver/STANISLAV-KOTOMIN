@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praxis Stadtmitte | Stanislav Kotomin</title>
+    <style>
+        :root {
+            --gold: #c5a059;
+            --beige: #fdfbf7;
+            --dark: #2c2c2c;
+            --white: #ffffff;
+            --light-gold: #fdfaf0;
+        }
+
+        * { box-sizing: border-box; }
+        body { font-family: 'Georgia', serif; background-color: var(--beige); color: var(--dark); margin: 0; line-height: 1.6; }
+
+        /* NAVIGATION */
+        nav { padding: 20px 40px; background: var(--white); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
+        .back-btn { cursor: pointer; color: var(--gold); font-weight: bold; display: none; text-transform: uppercase; font-size: 0.9rem; }
+
+        /* HOME PAGE */
+        #home-page { display: flex; flex-direction: column; align-items: center; padding: 60px 20px; text-align: center; }
+        .main-symbol { width: 120px; height: 120px; border: 1px solid var(--gold); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 3.5rem; color: var(--gold); margin-bottom: 30px; }
+       
+        .manifesto { max-width: 800px; font-size: 1.7rem; color: var(--dark); margin-bottom: 20px; font-weight: normal; }
+        .philosophy-text { max-width: 750px; font-size: 1.1rem; color: #666; margin-bottom: 50px; text-align: center; }
+        .philosophy-block { margin-bottom: 20px; font-style: italic; }
+
+        /* MENÜ */
+        .menu-container { width: 100%; max-width: 500px; display: flex; flex-direction: column; gap: 12px; }
+        .menu-item { display: flex; align-items: center; cursor: pointer; transition: 0.4s; padding: 18px; background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .menu-item:hover { transform: translateX(15px); border-left: 8px solid var(--gold); }
+        .menu-icon { font-size: 2rem; color: var(--gold); width: 60px; text-align: left; }
+        .menu-text { font-size: 1.3rem; letter-spacing: 1px; text-transform: uppercase; }
+
+        /* CV CARD */
+        .cv-card { margin-top: 50px; padding: 25px; background: white; border: 1px solid var(--gold); border-radius: 12px; cursor: pointer; transition: 0.5s; display: flex; align-items: center; gap: 20px; max-width: 450px; }
+        .cv-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(197,160,89,0.15); }
+
+        /* SUB-PAGES */
+        .sub-page { display: none; padding: 60px 20px; max-width: 900px; margin: 0 auto; animation: fadeIn 0.6s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        h2 { font-size: 2.5rem; color: var(--gold); border-bottom: 2px solid var(--gold); padding-bottom: 15px; margin-bottom: 30px; }
+        h3 { color: var(--gold); margin-top: 30px; }
+       
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        @media (max-width: 750px) { .grid { grid-template-columns: 1fr; } }
+       
+        ul { list-style: none; padding: 0; }
+        li { padding: 10px 0; border-bottom: 1px solid #eee; display: flex; align-items: flex-start; }
+        li::before { content: "✦"; color: var(--gold); margin-right: 15px; }
+
+        .info-box { background: white; padding: 30px; border-radius: 12px; border: 1px solid #f0eddf; }
+        .mechanism-box { background: var(--light-gold); padding: 25px; border-left: 4px solid var(--gold); margin-top: 30px; }
+        .mechanism-box h4 { margin-top: 0; color: var(--gold); text-transform: uppercase; font-size: 0.9rem; }
+
+        /* BUTTONS */
+        .action-button {
+            display: inline-block; margin-top: 20px; padding: 12px 25px;
+            background: var(--gold); color: white; text-decoration: none;
+            border-radius: 5px; font-weight: bold; cursor: pointer; border: none;
+        }
+
+        footer { margin-top: 100px; padding: 60px 20px; background: #f2f2f2; text-align: center; font-size: 0.9rem; }
+        .footer-links { display: flex; justify-content: center; gap: 20px; margin-top: 10px; cursor: pointer; color: var(--gold); font-weight: bold; }
+
+        .info-box{
+            background:#fff;
+            padding:30px;
+            border-radius:12px;
+        }
+
+        .cert-list li{
+            cursor:pointer;
+        }
+        .cert-list li::before{content:none}
+        /* MODAL */
+        .modal{
+            position:fixed;
+            inset:0;
+            display:none;
+            z-index:9999;
+        }
+        .modal.is-open{display:block}
+
+        .modal__backdrop{
+            position:absolute;
+            inset:0;
+            background:rgba(0,0,0,.6);
+        }
+
+        .modal__dialog{
+            position:relative;
+            max-width:900px;
+            width:calc(100% - 40px);
+            margin:40px auto;
+            background:#fff;
+            border-radius:16px;
+            padding:20px;
+        }
+
+        .modal__close{
+            position:absolute;
+            top:10px;
+            right:10px;
+            background:none;
+            border:none;
+            font-size:24px;
+            cursor:pointer;
+        }
+
+        .modal__content img,
+        .modal__content iframe{
+            width:100%;
+            border-radius:12px;
+        }
+
+        .modal__content iframe{
+            height:80vh;
+            border:0;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div style="letter-spacing: 2px;">STANISLAV KOTOMIN</div>
+    <div class="back-btn" id="nav-back" onclick="showHome()">← Zurück</div>
+</nav>
+
+<div id="home-page">
+    <div class="main-symbol">⚭</div>
+    <div class="manifesto">Gesundheit finden statt Krankheit bekämpfen.</div>
+    <div class="philosophy-text">
+        <div class="philosophy-block">
+            In der <strong>Osteopathie</strong> entsteht das Symptom dort, wo der Körper sich nicht mehr selbst regulieren kann. Gemeinsam suchen wir nach dem Ursprung der Selbstregulation und stellen uns die Frage, was den Körper daran hindert, sich selbst zu heilen.
+        </div>
+        <div class="philosophy-block">
+            Die <strong>Psychosomatik</strong> versteht den Körper als eine Leinwand, auf der die Psyche ihre ungelösten Konflikte und Gefühle sichtbar macht. Wenn Worte fehlen, spricht der Körper. Heilung bedeutet hier, die Symptome nicht nur zu bekämpfen, sondern sie als Botschaften zu entschlüsseln, um die zugrunde liegende psychische Dynamik zu verstehen.
+        </div>
+    </div>
+
+    <div class="menu-container">
+        <div class="menu-item" onclick="openPage('osteo')"><span class="menu-icon">⎔</span><span class="menu-text">Osteopathie</span></div>
+        <div class="menu-item" onclick="openPage('physio')"><span class="menu-icon">⌬</span><span class="menu-text">Physiotherapie</span></div>
+        <div class="menu-item" onclick="openPage('hypnose')"><span class="menu-icon">❂</span><span class="menu-text">Hypnosetherapie</span></div>
+        <div class="menu-item" onclick="openPage('trauma')"><span class="menu-icon">✧</span><span class="menu-text">Traumatherapie</span></div>
+        <div class="menu-item" onclick="openPage('phyto')"><span class="menu-icon">֍</span><span class="menu-text">Phytotherapie</span></div>
+        <div class="menu-item" onclick="openPage('yoga')"><span class="menu-icon">∞</span><span class="menu-text">Yoga & Atem</span></div>
+    </div>
+
+    <div class="cv-card" onclick="openPage('cv')">
+        <span style="font-size: 2.5rem;">📜</span>
+        <div style="text-align: left;">
+            <div style="color: var(--gold); font-size: 0.8rem; font-weight: bold;">QUALIFIKATIONEN</div>
+            <div style="font-size: 1.1rem; font-weight: bold;">Zertifikate</div>
+        </div>
+    </div>
+</div>
+
+<div id="osteo" class="sub-page">
+    <h2>Osteopathie</h2>
+    <div class="grid">
+        <ul><li>Migräne & Kopfschmerz</li><li>Kieferpressen (CMD)</li><li>Verdauungsstau</li><li>Tinnitus</li><li>Schwindel</li><li>Narbenstörungen</li></ul>
+        <div class="info-box"><p>Sanfte manuelle Korrektur der inneren Strukturen für ein freies Fließen der Lebenskraft.</p></div>
+    </div>
+    <div class="mechanism-box">
+        <h4>Der Mechanismus: Die Autoregulation</h4>
+        <p>In der Osteopathie geben wir den nötigen Impuls, damit der Körper sein inneres Gleichgewicht selbst wiederfindet.</p>
+    </div>
+</div>
+
+<div id="physio" class="sub-page">
+    <h2>Physiotherapie</h2>
+    <div class="grid">
+        <ul><li>Bandscheibenvorfall</li><li>Sportunfälle</li><li>Arthrose</li><li>Ischias</li><li>Skoliose</li><li>Reha nach OPs</li></ul>
+        <div class="info-box"><p>Wiederherstellung der mechanischen Funktion durch Bewegung und manuelle Mobilisation.</p></div>
+    </div>
+</div>
+
+<div id="hypnose" class="sub-page">
+    <h2>Hypnosetherapie & Existentielles Coaching</h2>
+    <div class="grid">
+        <ul><li>Angstzustände</li><li>Depression</li><li>Sinnsuche</li><li>Burnout</li><li>Trauerarbeit</li><li>Blockadenlösung</li></ul>
+        <div class="info-box"><p>Hypnose ist kein Kontrollverlust, sondern eine hochfokussierte Form der Aufmerksamkeit. Sie ist ein geschützter Raum, in dem der kritische Verstand des Alltags pausiert, damit wir direkt mit dem Unterbewusstsein kommunizieren können. Hier lagern nicht nur unsere Blockaden, sondern auch die Lösungen und Ressourcen, die im Wachzustand oft vom logischen Denken überdeckt werden.</p></div>
+    </div>
+</div>
+
+<div id="trauma" class="sub-page">
+    <h2>Traumatherapie & Polyvagal</h2>
+    <div class="grid">
+        <ul><li>Schockmomente</li><li>Flashbacks</li><li>Panikattacken</li><li>Hypervigilanz</li><li>Erschöpfung</li><li>Innere Erstarrung</li></ul>
+        <div class="info-box"><p>Ein Trauma ist ein Ereignis aus der Vergangenheit, das für das Nervensystem noch immer in der Gegenwart stattfindet. In der Traumatherapie geht es nicht darum, die Erinnerung zu löschen, sondern dem Körper beizubringen, dass die Gefahr vorbei ist. Heilung bedeutet, dem System zu helfen, den Unterschied zwischen „damals“ und „jetzt“ wieder zu spüren, damit der ständige Alarmzustand enden kann.</p></div>
+    </div>
+</div>
+
+<div id="phyto" class="sub-page">
+    <h2>Phytotherapie</h2>
+    <div class="grid">
+        <ul><li>Immunschwäche</li><li>Schlafprobleme</li><li>Entzündungen</li><li>Wechseljahre</li><li>Stoffwechsel</li><li>Hautprobleme</li></ul>
+        <div class="info-box"><p>Wahre Heilung braucht Präzision. Deshalb überlassen wir nichts dem Zufall: Durch die Zusammenarbeit mit spezialisierten Fachlaboren identifizieren wir biochemische Mängel in Ihrem System bis auf die Zellebene. Basierend auf diesen Fakten setzen wir die Phytotherapie als gezielte Antwort ein, um Ihren Körper punktgenau mit den fehlenden natürlichen Bausteinen zu versorgen.</p></div>
+    </div>
+</div>
+
+<div id="yoga" class="sub-page">
+    <h2>Yoga & Atemtherapie</h2>
+    <div class="grid">
+        <ul><li>Stress</li><li>Konzentrationsstörungen</li><li>Verspannungen</li><li>Herzrasen</li><li>Zwerchfellblockaden</li></ul>
+        <div class="info-box">
+            <p>Yoga ist der Weg zurück nach Hause. Der bewusste Atem ist der Pfadfinder auf diesem Weg. In einer Welt voller Lärm und Hektik erinnert uns der Atem im Yoga daran, dass die tiefste Kraft in der Stille zwischen Ein- und Ausatmung liegt. Er reinigt die Kanäle und ermöglicht es uns, unsere wahre Natur jenseits von Stress und Krankheit wieder zu spüren.</p>
+        </div>
+    </div>
+</div>
+
+<div id="cv" class="sub-page">
+    <h2>Zertifikate & Werdegang</h2>
+    <div class="info-box">
+        <p style="font-style: italic; color: #555; margin-bottom: 25px;">
+            Mein Weg in der Heilkunst begann mit der fundierten Ausbildung zum <strong>Physiotherapeuten</strong>, die mir das tiefe Verständnis für die Mechanik des menschlichen Körpers vermittelte. In den darauffolgenden Jahren vertiefte ich meine manuelle Expertise durch spezialisierte Weiterbildungen in der <strong>Manuellen Therapie</strong>, der <strong>Lymphdrainage</strong> und der <strong>Craniosacralen Therapie</strong>.<br><br>
+            Mit der <strong>Osteopathie</strong> erreichte meine Arbeit eine neue Ebene der Ganzheitlichkeit. Doch je tiefer ich in die körperlichen Strukturen vordrang, desto deutlicher erkannte ich die untrennbare Verbindung zwischen Physis und Psyche. Diese Erkenntnis wurde besonders während meiner Tätigkeit in der renommierten <strong>Clinica Holistica</strong> geprägt, wo ich tiefgreifende Einblicke in die psychosomatische Medizin gewinnen durfte.<br><br>
+            Um meine Patienten auf dieser essenziellen Ebene noch wirkungsvoller begleiten zu können, folgten fundierte Ausbildungen in der <strong>Hypnose- und Traumatherapie</strong>, in denen ich mich bis heute stetig weiterbilde. Seit über <strong>sieben Jahren</strong> führe ich nun meine eigene Praxis und verbinde dort meine langjährige Erfahrung als Physiotherapeut und Osteopath mit der Arbeit an den tieferen Schichten unseres Seins.
+        </p>
+       <div class="info-box">
+            <ul class="cert-list">
+            <li data-src="certs/1.jpg" data-type="image">Physiotherapeut</li>
+            <li data-src="certs/2.jpg" data-type="image">Osteopath</li>
+            <li data-src="certs/3.jpg" data-type="image">Manuelle Therapie</li>
+            <li data-src="certs/4.jpg" data-type="image">Lymphdrainage</li>
+            <li data-src="certs/5.jpg" data-type="image">Craniosacral</li>
+            <li data-src="certs/6.jpg" data-type="image">Hypnose</li>
+            <li data-src="certs/7.jpg" data-type="image">Trauma</li>
+            <li data-src="certs/8.jpg" data-type="image">Weiterbildung</li>
+            <li data-src="certs/9.jpg" data-type="image">Weiterbildung</li>
+            <li data-src="certs/10.jpg" data-type="image">Weiterbildung</li>
+            <li data-src="certs/11.jpg" data-type="image">Weiterbildung</li>
+    </ul>
+  </div>
+    </div>
+</div>
+
+<div id="agb" class="sub-page">
+    <h2>Allgemeine Geschäftsbedingungen (AGB)</h2>
+    <div class="info-box">
+        <h3>1. Geltungsbereich</h3><p>Diese AGB gelten für alle Behandlungen in der Praxis von Stanislav Kotomin.</p>
+        <h3>2. Terminabsagen</h3><p>Vereinbarte Termine sind verbindlich. Absagen müssen mindestens <strong>24 Stunden im Voraus</strong> erfolgen. Bei verspäteter Absage oder Nichterscheinen wird der Termin privat in Rechnung gestellt.</p>
+        <h3>3. Eigenverantwortung</h3><p>Die Behandlungen dienen der Aktivierung der Selbstheilungskräfte. Der Klient ist verpflichtet, über bestehende Vorerkrankungen aufzuklären.</p>
+        <h3>4. Schweigepflicht</h3><p>Sämtliche Informationen werden streng vertraulich behandelt.</p>
+    </div>
+</div>
+
+<div id="impressum" class="sub-page">
+    <h2>Impressum</h2>
+    <p>Stanislav Kotomin<br>Schneidergasse 6, 4051 Basel<br>Tel: 078 253 15 19 | 061 261 45 85<br>Email: osteovita@gmail.com</p>
+</div>
+
+<footer>
+   <p>Stanislav Kotomin<br>Praxis Stadtmitte<br>Schneidergasse 6, 4051 Basel<br>Tel: 078 253 15 19 | 061 261 45 85<br>Email: osteovita@gmail.com</p>
+    <div class="footer-links">
+        <span onclick="openPage('impressum')">Impressum</span> | <span onclick="openPage('agb')">AGB</span>
+    </div>
+</footer>
+
+<div id="certModal" class="modal">
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__dialog">
+    <button class="modal__close" data-close>✕</button>
+    <div class="modal__content" id="certModalContent"></div>
+  </div>
+</div>
+
+<script>
+    function openPage(id) {
+        document.getElementById('home-page').style.display = 'none';
+        document.querySelectorAll('.sub-page').forEach(p => p.style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+        document.getElementById('nav-back').style.display = 'block';
+        window.scrollTo(0,0);
+    }
+    function showHome() {
+        document.getElementById('home-page').style.display = 'flex';
+        document.querySelectorAll('.sub-page').forEach(p => p.style.display = 'none');
+        document.getElementById('nav-back').style.display = 'none';
+        window.scrollTo(0,0);
+    }
+    (function(){
+    const modal=document.getElementById('certModal');
+    const content=document.getElementById('certModalContent');
+
+    function openModal(html){
+        content.innerHTML=html;
+        modal.classList.add('is-open');
+        document.body.style.overflow='hidden';
+    }
+
+    function closeModal(){
+        modal.classList.remove('is-open');
+        content.innerHTML='';
+        document.body.style.overflow='';
+    }
+
+    document.addEventListener('click',e=>{
+        const li=e.target.closest('.cert-list li');
+        if(li){
+        const src=li.dataset.src;
+        openModal(`<img src="${src}" alt="Zertifikat">`);
+        }
+        if(e.target.matches('[data-close]')) closeModal();
+    });
+
+    document.addEventListener('keydown',e=>{
+        if(e.key==='Escape') closeModal();
+    });
+    })();
+</script>
+</body>
+</html>
