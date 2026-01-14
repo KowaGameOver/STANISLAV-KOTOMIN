@@ -68,14 +68,16 @@
 
         .info-box{
             background:#fff;
-            padding:30px;
+            padding: 20px 30px;
             border-radius:12px;
         }
 
-        .cert-list li{
-            cursor:pointer;
+        .cert-list {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
         }
-        .cert-list li::before{content:none}
         /* MODAL */
         .modal{
             position:fixed;
@@ -120,6 +122,15 @@
         .modal__content iframe{
             height:80vh;
             border:0;
+        }
+        .certificate {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
     </style>
 </head>
@@ -222,21 +233,19 @@
             Mit der <strong>Osteopathie</strong> erreichte meine Arbeit eine neue Ebene der Ganzheitlichkeit. Doch je tiefer ich in die körperlichen Strukturen vordrang, desto deutlicher erkannte ich die untrennbare Verbindung zwischen Physis und Psyche. Diese Erkenntnis wurde besonders während meiner Tätigkeit in der renommierten <strong>Clinica Holistica</strong> geprägt, wo ich tiefgreifende Einblicke in die psychosomatische Medizin gewinnen durfte.<br><br>
             Um meine Patienten auf dieser essenziellen Ebene noch wirkungsvoller begleiten zu können, folgten fundierte Ausbildungen in der <strong>Hypnose- und Traumatherapie</strong>, in denen ich mich bis heute stetig weiterbilde. Seit über <strong>sieben Jahren</strong> führe ich nun meine eigene Praxis und verbinde dort meine langjährige Erfahrung als Physiotherapeut und Osteopath mit der Arbeit an den tieferen Schichten unseres Seins.
         </p>
-       <div class="info-box">
-            <ul class="cert-list">
-            <li data-src="certs/1.jpg" data-type="image">Physiotherapeut</li>
-            <li data-src="certs/2.jpg" data-type="image">Osteopath</li>
-            <li data-src="certs/3.jpg" data-type="image">Manuelle Therapie</li>
-            <li data-src="certs/4.jpg" data-type="image">Lymphdrainage</li>
-            <li data-src="certs/5.jpg" data-type="image">Craniosacral</li>
-            <li data-src="certs/6.jpg" data-type="image">Hypnose</li>
-            <li data-src="certs/7.jpg" data-type="image">Trauma</li>
-            <li data-src="certs/8.jpg" data-type="image">Weiterbildung</li>
-            <li data-src="certs/9.jpg" data-type="image">Weiterbildung</li>
-            <li data-src="certs/10.jpg" data-type="image">Weiterbildung</li>
-            <li data-src="certs/11.jpg" data-type="image">Weiterbildung</li>
-    </ul>
-  </div>
+       <div class="info-box cert-list">
+            <img src="certs/1.jpg" class="certificate"/>
+            <img src="certs/2.jpg" class="certificate"/>
+            <img src="certs/3.jpg" alt="" class="certificate">
+            <img src="certs/4.jpg" alt="" class="certificate">
+            <img src="certs/5.jpg" alt="" class="certificate">
+            <img src="certs/6.jpg" alt="" class="certificate">
+            <img src="certs/7.jpg" alt="" class="certificate">
+            <img src="certs/8.jpg" alt="" class="certificate">
+            <img src="certs/9.jpg" alt="" class="certificate">
+            <img src="certs/10.jpg" alt="" class="certificate">
+            <img src="certs/11.jpg" alt="" class="certificate">
+        </div>
     </div>
 </div>
 
@@ -284,35 +293,6 @@
         document.getElementById('nav-back').style.display = 'none';
         window.scrollTo(0,0);
     }
-    (function(){
-    const modal=document.getElementById('certModal');
-    const content=document.getElementById('certModalContent');
-
-    function openModal(html){
-        content.innerHTML=html;
-        modal.classList.add('is-open');
-        document.body.style.overflow='hidden';
-    }
-
-    function closeModal(){
-        modal.classList.remove('is-open');
-        content.innerHTML='';
-        document.body.style.overflow='';
-    }
-
-    document.addEventListener('click',e=>{
-        const li=e.target.closest('.cert-list li');
-        if(li){
-        const src=li.dataset.src;
-        openModal(`<img src="${src}" alt="Zertifikat">`);
-        }
-        if(e.target.matches('[data-close]')) closeModal();
-    });
-
-    document.addEventListener('keydown',e=>{
-        if(e.key==='Escape') closeModal();
-    });
-    })();
 </script>
 </body>
 </html>
